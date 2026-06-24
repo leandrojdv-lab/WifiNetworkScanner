@@ -59,11 +59,13 @@ object AppLogger {
         message: String,
         throwable: Throwable? = null
     ) {
-        safeLog {
-            if (throwable == null) {
-                Log.e(tag, message)
-            } else {
-                Log.e(tag, message, throwable)
+        if (BuildConfig.DEBUG) {
+            safeLog {
+                if (throwable == null) {
+                    Log.e(tag, message)
+                } else {
+                    Log.e(tag, message, throwable)
+                }
             }
         }
     }
