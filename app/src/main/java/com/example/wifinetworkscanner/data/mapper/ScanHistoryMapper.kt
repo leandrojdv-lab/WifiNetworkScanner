@@ -84,10 +84,16 @@ private fun ScanDeviceEntity.toDomain(): NetworkDevice {
         ipAddress = ipAddress,
         latencyMillis = latencyMillis,
         scannedAtEpochMillis = scannedAtEpochMillis,
-        detectionMethod = DeviceDetectionMethod.valueOf(detectionMethod),
+        detectionMethod = detectionMethod.toDeviceDetectionMethod(),
         openPorts = openPortsCsv.toOpenPorts(),
         label = label
     )
+}
+
+private fun String.toDeviceDetectionMethod(): DeviceDetectionMethod {
+    return DeviceDetectionMethod.entries.firstOrNull { detectionMethod ->
+        detectionMethod.name == this
+    } ?: FALLBACK_DEVICE_DETECTION_METHOD
 }
 
 private fun String.toOpenPorts(): List<Int> {
@@ -99,6 +105,8 @@ private fun String.toOpenPorts(): List<Int> {
         .mapNotNull { value -> value.trim().toIntOrNull() }
         .filter { port -> port in MIN_TCP_PORT..MAX_TCP_PORT }
 }
+
+private val FALLBACK_DEVICE_DETECTION_METHOD = DeviceDetectionMethod.REACHABLE
 
 private const val MIN_TCP_PORT = 1
 private const val MAX_TCP_PORT = 65535
