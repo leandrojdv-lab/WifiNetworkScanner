@@ -1,6 +1,7 @@
 package com.example.wifinetworkscanner.ui.navigation
 
 import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 sealed interface AppDestination {
 
@@ -30,16 +31,13 @@ sealed interface AppDestination {
     data object NetworkScans : AppDestination {
         const val ARG_NETWORK_IDENTIFIER = "networkIdentifier"
 
-        override val route: String = "history/network/{$ARG_NETWORK_IDENTIFIER}"
+        override val route: String = "history/network?$ARG_NETWORK_IDENTIFIER={$ARG_NETWORK_IDENTIFIER}"
         override val title: String = "Varreduras da rede"
 
         fun createRoute(networkIdentifier: String): String {
-            val encodedIdentifier = URLEncoder.encode(
-                networkIdentifier,
-                CHARSET_NAME
-            )
+            val encodedIdentifier = encodeRouteQueryValue(value = networkIdentifier)
 
-            return "history/network/$encodedIdentifier"
+            return "history/network?$ARG_NETWORK_IDENTIFIER=$encodedIdentifier"
         }
     }
 
@@ -79,6 +77,13 @@ sealed interface AppDestination {
             }
         }
 
-        private const val CHARSET_NAME = "UTF-8"
+        private fun encodeRouteQueryValue(value: String): String {
+            return URLEncoder
+                .encode(value, StandardCharsets.UTF_8.name())
+                .replace(ENCODED_SPACE_AS_PLUS, ENCODED_SPACE)
+        }
+
+        private const val ENCODED_SPACE_AS_PLUS = "+"
+        private const val ENCODED_SPACE = "%20"
     }
 }

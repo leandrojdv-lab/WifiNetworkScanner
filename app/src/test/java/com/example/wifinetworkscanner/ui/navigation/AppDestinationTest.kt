@@ -37,11 +37,29 @@ class AppDestinationTest {
     }
 
     @Test
-    fun networkScans_whenCreateRoute_shouldEncodeNetworkIdentifier() {
+    fun networkScans_whenRouteIsRead_shouldUseQueryParameter() {
         assertEquals(
-            "history/network/ssid%3Aminha+rede",
+            "history/network?networkIdentifier={networkIdentifier}",
+            AppDestination.NetworkScans.route
+        )
+    }
+
+    @Test
+    fun networkScans_whenCreateRoute_shouldEncodeNetworkIdentifierAsQueryParameter() {
+        assertEquals(
+            "history/network?networkIdentifier=ssid%3Aminha%20rede",
             AppDestination.NetworkScans.createRoute(
                 networkIdentifier = "ssid:minha rede"
+            )
+        )
+    }
+
+    @Test
+    fun networkScans_whenCreateRouteContainsSlash_shouldEncodeSlashWithoutChangingPathSegments() {
+        assertEquals(
+            "history/network?networkIdentifier=ssid%3Arede%2Fvisitantes",
+            AppDestination.NetworkScans.createRoute(
+                networkIdentifier = "ssid:rede/visitantes"
             )
         )
     }
@@ -66,7 +84,9 @@ class AppDestinationTest {
     fun selectedTopLevelDestination_whenRouteIsNetworkScans_shouldSelectHistory() {
         assertEquals(
             AppDestination.History,
-            AppDestination.selectedTopLevelDestination("history/network/{networkIdentifier}")
+            AppDestination.selectedTopLevelDestination(
+                "history/network?networkIdentifier={networkIdentifier}"
+            )
         )
     }
 
