@@ -41,10 +41,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.wifinetworkscanner.R
 import com.example.wifinetworkscanner.domain.model.ScanSettings
-import com.example.wifinetworkscanner.domain.validation.ScanSettingsValidationError
-import com.example.wifinetworkscanner.domain.validation.ScanSettingsValidationResult
-import com.example.wifinetworkscanner.domain.validation.ScanSettingsValidator
-import com.example.wifinetworkscanner.ui.text.UiText
 import com.example.wifinetworkscanner.ui.text.asString
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,7 +51,9 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.uiEffect.collect { effect ->
@@ -89,7 +87,8 @@ fun SettingsScreen(
         SettingsContent(
             paddingValues = paddingValues,
             uiState = uiState,
-            onSaveClick = viewModel::updateScanSettings
+            onSaveClick = viewModel::updateScanSettings,
+            onInputChanged = viewModel::clearErrorMessage
         )
     }
 }
@@ -98,7 +97,12 @@ fun SettingsScreen(
 private fun SettingsContent(
     paddingValues: PaddingValues,
     uiState: SettingsUiState,
-    onSaveClick: (ScanSettings) -> Unit
+    onSaveClick: (
+        maxHostsText: String,
+        timeoutMillisText: String,
+        parallelismText: String
+    ) -> Unit,
+    onInputChanged: () -> Unit
 ) {
     var maxHostsText by rememberSaveable {
         mutableStateOf(uiState.scanSettings.maxHosts.toString())
@@ -108,9 +112,6 @@ private fun SettingsContent(
     }
     var parallelismText by rememberSaveable {
         mutableStateOf(uiState.scanSettings.parallelism.toString())
-    }
-    var validationMessage by remember {
-        mutableStateOf<UiText?>(null)
     }
 
     val maxHostsRangeText = stringResource(
@@ -165,7 +166,7 @@ private fun SettingsContent(
                     enabled = !uiState.isSaving,
                     onValueChange = { value ->
                         maxHostsText = value.onlyDigits()
-                        validationMessage = null
+                        onInputChanged()
                     }
                 )
             }
@@ -179,7 +180,7 @@ private fun SettingsContent(
                     enabled = !uiState.isSaving,
                     onValueChange = { value ->
                         timeoutMillisText = value.onlyDigits()
-                        validationMessage = null
+                        onInputChanged()
                     }
                 )
             }
@@ -193,19 +194,9 @@ private fun SettingsContent(
                     enabled = !uiState.isSaving,
                     onValueChange = { value ->
                         parallelismText = value.onlyDigits()
-                        validationMessage = null
+                        onInputChanged()
                     }
                 )
-            }
-
-            validationMessage?.let { message ->
-                item {
-                    Text(
-                        text = message.asString(),
-                        color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
             }
 
             uiState.errorMessage?.let { message ->
@@ -223,28 +214,18 @@ private fun SettingsContent(
                     isSaving = uiState.isSaving,
                     onRestoreDefaultsClick = {
                         val defaultSettings = ScanSettings.default()
+
                         maxHostsText = defaultSettings.maxHosts.toString()
                         timeoutMillisText = defaultSettings.timeoutMillis.toString()
                         parallelismText = defaultSettings.parallelism.toString()
-                        validationMessage = null
+                        onInputChanged()
                     },
                     onSaveClick = {
-                        when (
-                            val result = ScanSettingsValidator.validate(
-                                maxHostsText = maxHostsText,
-                                timeoutMillisText = timeoutMillisText,
-                                parallelismText = parallelismText
-                            )
-                        ) {
-                            is ScanSettingsValidationResult.Success -> {
-                                validationMessage = null
-                                onSaveClick(result.scanSettings)
-                            }
-
-                            is ScanSettingsValidationResult.Error -> {
-                                validationMessage = result.error.toUiText()
-                            }
-                        }
+                        onSaveClick(
+                            maxHostsText,
+                            timeoutMillisText,
+                            parallelismText
+                        )
                     }
                 )
             }
@@ -365,58 +346,6 @@ private fun SettingsActionsCard(
             ) {
                 Text(text = stringResource(id = R.string.settings_restore_defaults))
             }
-        }
-    }
-}
-
-private fun ScanSettingsValidationError.toUiText(): UiText {
-    return when (this) {
-        ScanSettingsValidationError.InvalidMaxHostsValue -> {
-            UiText.StringResource(
-                resId = R.string.settings_validation_max_hosts_required
-            )
-        }
-
-        ScanSettingsValidationError.InvalidTimeoutMillisValue -> {
-            UiText.StringResource(
-                resId = R.string.settings_validation_timeout_required
-            )
-        }
-
-        ScanSettingsValidationError.InvalidParallelismValue -> {
-            UiText.StringResource(
-                resId = R.string.settings_validation_parallelism_required
-            )
-        }
-
-        ScanSettingsValidationError.MaxHostsOutOfRange -> {
-            UiText.StringResource(
-                resId = R.string.settings_validation_max_hosts_range,
-                args = listOf(
-                    ScanSettings.MIN_HOSTS,
-                    ScanSettings.MAX_HOSTS_LIMIT
-                )
-            )
-        }
-
-        ScanSettingsValidationError.TimeoutMillisOutOfRange -> {
-            UiText.StringResource(
-                resId = R.string.settings_validation_timeout_range,
-                args = listOf(
-                    ScanSettings.MIN_TIMEOUT_MILLIS,
-                    ScanSettings.MAX_TIMEOUT_MILLIS
-                )
-            )
-        }
-
-        ScanSettingsValidationError.ParallelismOutOfRange -> {
-            UiText.StringResource(
-                resId = R.string.settings_validation_parallelism_range,
-                args = listOf(
-                    ScanSettings.MIN_PARALLELISM,
-                    ScanSettings.MAX_PARALLELISM
-                )
-            )
         }
     }
 }

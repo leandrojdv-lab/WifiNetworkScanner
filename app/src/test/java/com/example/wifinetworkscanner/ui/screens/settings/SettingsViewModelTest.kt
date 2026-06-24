@@ -45,7 +45,7 @@ class SettingsViewModelTest {
     }
 
     @Test
-    fun updateScanSettings_whenValid_shouldSaveSettings() = runTest(mainDispatcherRule.testDispatcher) {
+    fun updateScanSettings_whenValidTextValues_shouldSaveSettings() = runTest(mainDispatcherRule.testDispatcher) {
         val repository = FakeScanSettingsRepository()
         val viewModel = createViewModel(scanSettingsRepository = repository)
         val updatedSettings = ScanSettings(
@@ -56,11 +56,89 @@ class SettingsViewModelTest {
 
         advanceUntilIdle()
 
-        viewModel.updateScanSettings(updatedSettings)
+        viewModel.updateScanSettings(
+            maxHostsText = "120",
+            timeoutMillisText = "800",
+            parallelismText = "12"
+        )
         advanceUntilIdle()
 
         assertEquals(updatedSettings, repository.currentSettings.value)
         assertFalse(viewModel.uiState.value.isSaving)
+        assertNull(viewModel.uiState.value.errorMessage)
+    }
+
+    @Test
+    fun updateScanSettings_whenMaxHostsTextIsInvalid_shouldExposeValidationMessage() = runTest(
+        mainDispatcherRule.testDispatcher
+    ) {
+        val repository = FakeScanSettingsRepository()
+        val viewModel = createViewModel(scanSettingsRepository = repository)
+
+        advanceUntilIdle()
+
+        viewModel.updateScanSettings(
+            maxHostsText = "abc",
+            timeoutMillisText = "800",
+            parallelismText = "12"
+        )
+        advanceUntilIdle()
+
+        assertEquals(ScanSettings.default(), repository.currentSettings.value)
+        assertFalse(viewModel.uiState.value.isSaving)
+        assertEquals(
+            UiText.StringResource(resId = R.string.settings_validation_max_hosts_required),
+            viewModel.uiState.value.errorMessage
+        )
+    }
+
+    @Test
+    fun updateScanSettings_whenTimeoutIsOutOfRange_shouldExposeValidationMessage() = runTest(
+        mainDispatcherRule.testDispatcher
+    ) {
+        val repository = FakeScanSettingsRepository()
+        val viewModel = createViewModel(scanSettingsRepository = repository)
+
+        advanceUntilIdle()
+
+        viewModel.updateScanSettings(
+            maxHostsText = "120",
+            timeoutMillisText = "1",
+            parallelismText = "12"
+        )
+        advanceUntilIdle()
+
+        assertEquals(ScanSettings.default(), repository.currentSettings.value)
+        assertFalse(viewModel.uiState.value.isSaving)
+        assertEquals(
+            UiText.StringResource(
+                resId = R.string.settings_validation_timeout_range,
+                args = listOf(
+                    ScanSettings.MIN_TIMEOUT_MILLIS,
+                    ScanSettings.MAX_TIMEOUT_MILLIS
+                )
+            ),
+            viewModel.uiState.value.errorMessage
+        )
+    }
+
+    @Test
+    fun clearErrorMessage_whenCalled_shouldRemoveCurrentErrorMessage() = runTest(
+        mainDispatcherRule.testDispatcher
+    ) {
+        val viewModel = createViewModel()
+
+        advanceUntilIdle()
+
+        viewModel.updateScanSettings(
+            maxHostsText = "abc",
+            timeoutMillisText = "800",
+            parallelismText = "12"
+        )
+        advanceUntilIdle()
+
+        viewModel.clearErrorMessage()
+
         assertNull(viewModel.uiState.value.errorMessage)
     }
 
@@ -73,7 +151,11 @@ class SettingsViewModelTest {
 
         advanceUntilIdle()
 
-        viewModel.updateScanSettings(ScanSettings.default())
+        viewModel.updateScanSettings(
+            maxHostsText = ScanSettings.default().maxHosts.toString(),
+            timeoutMillisText = ScanSettings.default().timeoutMillis.toString(),
+            parallelismText = ScanSettings.default().parallelism.toString()
+        )
         advanceUntilIdle()
 
         assertFalse(viewModel.uiState.value.isSaving)
@@ -109,11 +191,10 @@ class SettingsViewModelTest {
 
         override suspend fun updateScanSettings(scanSettings: ScanSettings) {
             if (shouldFailOnUpdate) {
-                throw IllegalStateException("Falha simulada ao salvar configuraÃ§Ãµes.")
+                throw IllegalStateException("Falha simulada ao salvar configurações.")
             }
 
             currentSettings.value = scanSettings
         }
     }
 }
-
