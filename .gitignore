@@ -1,0 +1,38 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Android Studio
+.idea/
+*.iml
+local.properties
+
+# Keystores e credenciais
+*.jks
+*.keystore
+*.pem
+*.p12
+*.properties.backup
+
+# Artefatos de release locais
+release/
+*.apk
+*.aab
+*.apks
+*.idsig
+
+# Logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Kotlin/Java
+*.class
+
+# Capturas e arquivos temporários
+captures/
+.externalNativeBuild/
+.cxx/

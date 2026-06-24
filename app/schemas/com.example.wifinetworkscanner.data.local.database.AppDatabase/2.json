@@ -1,0 +1,222 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "f7f4608ad4f1cd7fe308d2a03d87c22f",
+    "entities": [
+      {
+        "tableName": "tabela_historico_varreduras",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scan_history_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `started_at_epoch_millis` INTEGER NOT NULL, `completed_at_epoch_millis` INTEGER NOT NULL, `network_name` TEXT NOT NULL DEFAULT 'Rede desconhecida', `network_identifier` TEXT NOT NULL DEFAULT 'unknown_network', `local_ip_address` TEXT NOT NULL, `gateway_ip_address` TEXT, `network_prefix_length` INTEGER NOT NULL, `total_host_count` INTEGER NOT NULL, `scanned_host_count` INTEGER NOT NULL, `found_device_count` INTEGER NOT NULL, `max_hosts` INTEGER NOT NULL, `timeout_millis` INTEGER NOT NULL, `parallelism` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "scanHistoryId",
+            "columnName": "scan_history_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtEpochMillis",
+            "columnName": "started_at_epoch_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completedAtEpochMillis",
+            "columnName": "completed_at_epoch_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "networkName",
+            "columnName": "network_name",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'Rede desconhecida'"
+          },
+          {
+            "fieldPath": "networkIdentifier",
+            "columnName": "network_identifier",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'unknown_network'"
+          },
+          {
+            "fieldPath": "localIpAddress",
+            "columnName": "local_ip_address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gatewayIpAddress",
+            "columnName": "gateway_ip_address",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "networkPrefixLength",
+            "columnName": "network_prefix_length",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalHostCount",
+            "columnName": "total_host_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scannedHostCount",
+            "columnName": "scanned_host_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foundDeviceCount",
+            "columnName": "found_device_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxHosts",
+            "columnName": "max_hosts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeoutMillis",
+            "columnName": "timeout_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parallelism",
+            "columnName": "parallelism",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "scan_history_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_tabela_historico_varreduras_started_at_epoch_millis",
+            "unique": false,
+            "columnNames": [
+              "started_at_epoch_millis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tabela_historico_varreduras_started_at_epoch_millis` ON `${TABLE_NAME}` (`started_at_epoch_millis`)"
+          },
+          {
+            "name": "index_tabela_historico_varreduras_network_identifier",
+            "unique": false,
+            "columnNames": [
+              "network_identifier"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tabela_historico_varreduras_network_identifier` ON `${TABLE_NAME}` (`network_identifier`)"
+          }
+        ]
+      },
+      {
+        "tableName": "tabela_dispositivos_varredura",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scan_device_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `scan_history_owner_id` INTEGER NOT NULL, `ip_address` TEXT NOT NULL, `latency_millis` INTEGER NOT NULL, `scanned_at_epoch_millis` INTEGER NOT NULL, `detection_method` TEXT NOT NULL, `open_ports_csv` TEXT NOT NULL, `label` TEXT, FOREIGN KEY(`scan_history_owner_id`) REFERENCES `tabela_historico_varreduras`(`scan_history_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "scanDeviceId",
+            "columnName": "scan_device_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scanHistoryOwnerId",
+            "columnName": "scan_history_owner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ipAddress",
+            "columnName": "ip_address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latencyMillis",
+            "columnName": "latency_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scannedAtEpochMillis",
+            "columnName": "scanned_at_epoch_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "detectionMethod",
+            "columnName": "detection_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "openPortsCsv",
+            "columnName": "open_ports_csv",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "scan_device_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_tabela_dispositivos_varredura_scan_history_owner_id",
+            "unique": false,
+            "columnNames": [
+              "scan_history_owner_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tabela_dispositivos_varredura_scan_history_owner_id` ON `${TABLE_NAME}` (`scan_history_owner_id`)"
+          },
+          {
+            "name": "index_tabela_dispositivos_varredura_ip_address",
+            "unique": false,
+            "columnNames": [
+              "ip_address"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tabela_dispositivos_varredura_ip_address` ON `${TABLE_NAME}` (`ip_address`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tabela_historico_varreduras",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "scan_history_owner_id"
+            ],
+            "referencedColumns": [
+              "scan_history_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f7f4608ad4f1cd7fe308d2a03d87c22f')"
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wi-Fi Scanner</string>
+
+    <string name="common_menu">Menu</string>
+    <string name="common_back">Voltar</string>
+    <string name="common_allow">Permitir</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_clear">Limpar</string>
+    <string name="common_remove">Remover</string>
+    <string name="common_view_details">Ver detalhes</string>
+    <string name="common_not_identified">não identificado</string>
+    <string name="common_not_identified_yet">ainda não identificado</string>
+
+    <string name="message_unexpected_error">Ocorreu um erro inesperado.</string>
+
+    <string name="home_title">Wi-Fi Scanner</string>
+    <string name="home_scan_card_title">Varredura de rede Wi-Fi</string>
+    <string name="home_scan_card_description">Identifique a rede Wi-Fi atual e procure dispositivos alcançáveis na mesma faixa de IP.</string>
+    <string name="home_scan_card_example">Exemplo: se o celular estiver em 192.168.1.25/24, o app pode testar de 192.168.1.1 até 192.168.1.254.</string>
+    <string name="home_limitation_title">Limitação técnica</string>
+    <string name="home_limitation_description">Alguns aparelhos podem estar conectados ao roteador e não responder à varredura por firewall, isolamento de clientes ou configuração do próprio dispositivo.</string>
+    <string name="home_start_scan">Preparar varredura</string>
+
+    <string name="drawer_header_badge">Wi</string>
+    <string name="drawer_header_subtitle">Diagnóstico local</string>
+    <string name="drawer_header_description">Scanner, histórico por redes, pesquisa e ajustes em um só lugar.</string>
+    <string name="drawer_badge_new">Novo</string>
+    <string name="drawer_footer_title">Status do projeto</string>
+    <string name="drawer_footer_chip">Histórico, pesquisa e exportação ativos</string>
+    <string name="drawer_footer_description">Próximas ferramentas podem ser adicionadas aqui sem alterar a tela inicial.</string>
+    <string name="drawer_scanner_title">Scanner</string>
+    <string name="drawer_scanner_description">Varredura da rede atual</string>
+    <string name="drawer_history_title">Histórico</string>
+    <string name="drawer_history_description">Redes e varreduras salvas</string>
+    <string name="drawer_search_title">Pesquisa</string>
+    <string name="drawer_search_description">Buscar por IP, porta ou rede</string>
+    <string name="drawer_settings_title">Configurações</string>
+    <string name="drawer_settings_description">Parâmetros da varredura</string>
+    <string name="drawer_about_title">Sobre</string>
+    <string name="drawer_about_description">Informações do aplicativo</string>
+    <string name="drawer_network_scans_title">Varreduras</string>
+    <string name="drawer_network_scans_description">Varreduras da rede</string>
+    <string name="drawer_history_detail_title">Detalhes</string>
+    <string name="drawer_history_detail_description">Detalhes da varredura</string>
+
+    <string name="about_title">Sobre</string>
+    <string name="about_app_description">Aplicativo para diagnóstico local de redes Wi-Fi autorizadas.</string>
+    <string name="about_features_title">Recursos disponíveis</string>
+    <string name="about_features_description">Scanner de dispositivos, histórico por rede, pesquisa por IP ou porta, configurações de varredura e exportação de relatórios em TXT e CSV.</string>
+
+    <string name="history_detail_title">Detalhes</string>
+    <string name="history_detail_export">Exportar</string>
+    <string name="history_detail_exporting">Exportando</string>
+    <string name="history_detail_export_txt">Relatório TXT</string>
+    <string name="history_detail_export_csv">Planilha CSV</string>
+    <string name="history_detail_share_chooser_title">Compartilhar relatório</string>
+    <string name="history_detail_not_found_title">Varredura não encontrada</string>
+    <string name="history_detail_not_found_message">Este registro pode ter sido removido do histórico.</string>
+    <string name="history_detail_devices_found">Dispositivos encontrados: %1$d</string>
+    <string name="history_detail_no_saved_device_title">Nenhum dispositivo salvo</string>
+    <string name="history_detail_no_saved_device_message">Nenhum dispositivo foi registrado nesta varredura.</string>
+    <string name="history_detail_load_failed_message">Ocorreu um erro ao carregar os detalhes da varredura.</string>
+    <string name="history_detail_invalid_id_message">Registro de histórico inválido.</string>
+    <string name="history_detail_not_found_error_message">Registro de histórico não encontrado.</string>
+    <string name="history_detail_export_failed_message">Não foi possível exportar o relatório.</string>
+    <string name="history_detail_missing_export_message">Não há varredura carregada para exportar.</string>
+
+    <string name="history_title">Histórico por redes</string>
+    <string name="history_clear_title">Limpar histórico</string>
+    <string name="history_clear_message">Deseja remover todos os registros de histórico salvos?</string>
+    <string name="history_delete_network_title">Remover rede</string>
+    <string name="history_delete_network_message">Deseja remover todas as varreduras salvas desta rede?</string>
+    <string name="history_empty_title">Nenhuma rede salva ainda</string>
+    <string name="history_empty_message">Faça uma varredura completa para gerar o primeiro grupo de histórico.</string>
+    <string name="history_load_failed_message">Ocorreu um erro ao carregar o histórico.</string>
+    <string name="history_network_removed_message">Histórico da rede removido.</string>
+    <string name="history_cleared_message">Histórico limpo.</string>
+
+    <string name="network_scans_title">Varreduras</string>
+    <string name="network_scans_delete_title">Remover registro</string>
+    <string name="network_scans_delete_message">Deseja remover esta varredura do histórico?</string>
+    <string name="network_scans_empty_title">Nenhuma varredura encontrada</string>
+    <string name="network_scans_empty_message">Não há registros salvos para esta rede.</string>
+    <string name="network_scans_saved_count">Varreduras salvas: %1$d</string>
+    <string name="network_scans_delete_action">Remover varredura</string>
+    <string name="network_scans_load_failed_message">Ocorreu um erro ao carregar as varreduras da rede.</string>
+    <string name="network_scans_invalid_network_message">Rede inválida.</string>
+    <string name="network_scans_removed_message">Registro removido.</string>
+
+    <string name="search_title">Pesquisa</string>
+    <string name="search_results_count">Resultados: %1$d</string>
+    <string name="search_no_result_title">Nenhum resultado</string>
+    <string name="search_no_result_message">Nenhuma varredura foi encontrada com estes filtros.</string>
+    <string name="search_empty_history_title">Nenhuma varredura salva</string>
+    <string name="search_empty_history_message">Faça uma varredura para começar a pesquisar no histórico.</string>
+    <string name="search_filters_title">Filtros</string>
+    <string name="search_query_label">Rede, IP, gateway ou dispositivo</string>
+    <string name="search_open_port_label">Porta aberta</string>
+    <string name="search_invalid_port_message">Use uma porta entre %1$d e %2$d.</string>
+    <string name="search_clear_filters">Limpar filtros</string>
+    <string name="search_load_failed_message">Ocorreu um erro ao pesquisar o histórico.</string>
+
+    <string name="settings_title">Configurações</string>
+    <string name="settings_header_title">Parâmetros da varredura</string>
+    <string name="settings_header_description">Ajuste estes valores conforme o tamanho da rede e o desempenho esperado. Valores maiores podem tornar a varredura mais lenta.</string>
+    <string name="settings_max_hosts_title">Quantidade máxima de hosts</string>
+    <string name="settings_max_hosts_description">Define quantos endereços serão avaliados em uma varredura.</string>
+    <string name="settings_timeout_title">Timeout por host</string>
+    <string name="settings_timeout_description">Tempo máximo de espera por resposta em cada endereço.</string>
+    <string name="settings_parallelism_title">Paralelismo</string>
+    <string name="settings_parallelism_description">Quantidade de verificações executadas em paralelo.</string>
+    <string name="settings_value_label">Valor</string>
+    <string name="settings_allowed_range">Permitido: %1$s</string>
+    <string name="settings_range_hosts">%1$d a %2$d</string>
+    <string name="settings_range_timeout">%1$d a %2$d ms</string>
+    <string name="settings_range_parallelism">%1$d a %2$d</string>
+    <string name="settings_save">Salvar configurações</string>
+    <string name="settings_restore_defaults">Restaurar padrão</string>
+    <string name="settings_saved_message">Configurações salvas.</string>
+    <string name="settings_operation_failed_message">Ocorreu um erro ao processar as configurações.</string>
+    <string name="settings_validation_max_hosts_required">Informe uma quantidade válida de hosts.</string>
+    <string name="settings_validation_timeout_required">Informe um timeout válido.</string>
+    <string name="settings_validation_parallelism_required">Informe um paralelismo válido.</string>
+    <string name="settings_validation_max_hosts_range">A quantidade de hosts deve ficar entre %1$d e %2$d.</string>
+    <string name="settings_validation_timeout_range">O timeout deve ficar entre %1$d e %2$d ms.</string>
+    <string name="settings_validation_parallelism_range">O paralelismo deve ficar entre %1$d e %2$d.</string>
+
+    <string name="network_scanner_title">Scanner</string>
+    <string name="network_scanner_permission_granted">Permissão concedida. A varredura tentará salvar o nome da rede.</string>
+    <string name="network_scanner_permission_granted_location_disabled">Permissão concedida, mas a Localização do aparelho está desligada. A rede pode aparecer como desconhecida.</string>
+    <string name="network_scanner_permission_denied">Permissão negada. A varredura continuará, mas a rede pode aparecer como desconhecida.</string>
+    <string name="network_scanner_continue_without_network_name_message">A varredura continuará, mas a rede pode aparecer como desconhecida.</string>
+    <string name="network_scanner_location_disabled_message">A Localização do aparelho está desligada. A varredura continua, mas a rede pode aparecer como desconhecida.</string>
+    <string name="network_scanner_devices_found">Dispositivos encontrados: %1$d</string>
+    <string name="network_scanner_waiting_responses_title">Aguardando respostas</string>
+    <string name="network_scanner_no_device_found_title">Nenhum dispositivo encontrado</string>
+    <string name="network_scanner_waiting_responses_message">A varredura está em andamento. Os dispositivos aparecerão aqui conforme forem detectados.</string>
+    <string name="network_scanner_no_device_found_message">Inicie uma varredura para identificar dispositivos ativos na rede atual.</string>
+    <string name="network_scanner_wifi_name_permission_title">Identificar nome da rede</string>
+    <string name="network_scanner_wifi_name_permission_message">Para salvar o histórico pelo nome real da rede Wi-Fi, o Android exige permissão de localização precisa e a Localização do aparelho ligada. O app usa isso apenas para tentar ler o nome da rede atual. A varredura também funciona sem isso, mas a rede pode aparecer como desconhecida.</string>
+    <string name="network_scanner_continue_without_name">Continuar sem nome</string>
+    <string name="network_scanner_scan_cancelled_message">Varredura cancelada.</string>
+    <string name="network_scanner_settings_saved_message">Configurações salvas.</string>
+    <string name="network_scanner_scan_finished_message">Varredura finalizada. %1$d dispositivo(s) encontrado(s).</string>
+    <string name="network_scanner_history_invalid_message">Varredura concluída, mas o histórico não pôde ser salvo.</string>
+    <string name="network_scanner_history_save_failed_message">Varredura concluída, mas houve falha ao salvar o histórico.</string>
+
+    <string name="scanner_action_start">Iniciar</string>
+    <string name="scanner_network_summary_title">Rede atual</string>
+    <string name="scanner_network_summary_name">Nome: %1$s</string>
+    <string name="scanner_network_summary_local_ip_unknown">IP local: ainda não identificado</string>
+    <string name="scanner_network_summary_local_ip">IP local: %1$s/%2$d</string>
+    <string name="scanner_network_summary_gateway_unknown">Gateway provável: ainda não identificado</string>
+    <string name="scanner_network_summary_gateway">Gateway provável: %1$s</string>
+    <string name="scanner_network_summary_host_range">Faixa analisada: %1$d endereço(s)</string>
+    <string name="scanner_progress_message">Verificando %1$d de %2$d endereços.</string>
+
+    <string name="network_device_open_ports">Portas abertas: %1$s</string>
+    <string name="network_device_latency">Latência aproximada: %1$d ms</string>
+
+    <string name="scan_history_summary_title">Resumo da varredura</string>
+    <string name="scan_history_summary_started_at">Início: %1$s</string>
+    <string name="scan_history_summary_completed_at">Conclusão: %1$s</string>
+    <string name="scan_history_summary_duration">Duração aproximada: %1$d s</string>
+    <string name="scan_history_summary_local_ip">IP local: %1$s/%2$d</string>
+    <string name="scan_history_summary_gateway">Gateway: %1$s</string>
+    <string name="scan_history_summary_hosts_checked">Hosts verificados: %1$d de %2$d</string>
+    <string name="scan_history_summary_settings">Configuração: %1$d hosts, %2$d ms, paralelismo %3$d</string>
+
+    <string name="network_scan_group_latest_scan">Última varredura: %1$s</string>
+    <string name="network_scan_group_latest_gateway">Gateway mais recente: %1$s</string>
+    <string name="network_scan_group_scan_count">Varreduras salvas: %1$d</string>
+    <string name="network_scan_group_total_found">Dispositivos encontrados no total: %1$d</string>
+    <string name="network_scan_group_open_scans">Abrir varreduras</string>
+    <string name="network_scan_group_delete_network">Remover rede</string>
+
+    <string name="scan_history_list_local_ip">IP local: %1$s/%2$d</string>
+    <string name="scan_history_list_gateway">Gateway: %1$s</string>
+    <string name="scan_history_list_found">Encontrados: %1$d de %2$d</string>
+    <string name="scan_history_list_open_ports">Portas abertas: %1$s</string>
+    <string name="scan_history_list_settings">Configuração: %1$d hosts, %2$d ms, paralelismo %3$d</string>
+</resources>
